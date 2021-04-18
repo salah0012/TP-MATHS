@@ -1,0 +1,82 @@
+
+#EX1
+def dimensions(A):
+    n=len(A)
+    p=len(A[0])
+    return n, p
+
+
+def afficher(A):
+    for ligne in A:
+        print(ligne)
+
+
+def matriceNulle(n,p):
+    return [[0 for j in range(p)] for i in range(n)]
+
+def matriceUnite(n):
+    A=([0,0,0],[0,0,0],[0,0,0])
+    if len(A)==len(A[0]):
+        for i in range(n):
+            A[i][i]=1
+        return A
+
+def transpose(A):
+    for i in range(len(A)):
+        for j in range(len(A[0])):
+            A[i][j]=A[j][i]
+    return A
+
+def estTriangulaireSup(A):
+    n , p = dimensions(A)
+    assert n == p
+    for i in range(n):
+        for j in range(i):
+            if A[i][j]!=0:
+                return False
+    return True
+
+    #EX2
+
+    def sommeMatrice(A,B):
+    n, p = dimensions(A)
+    q, r = dimensions(B)
+    assert (n,p) == (q,r)
+    C= matriceNulle(n,p)
+    for i in range(n):
+        for j in range(p):
+            C[i][j]=A[i][j]+B[i][j]
+    return C
+def multScalaire(n,A):
+    for i in range(len(A)):
+        for j in range(len(A[0])):
+            A[i][j]=n*A[i][j]
+    return A
+
+    #EX3
+    def blocs(A,a,b):
+    return [[A for j in range(b)] for i in range(a)]
+blocs("A",2,3)
+
+#EX4
+
+def exponaif(A,n):
+    a, b = dimension(A)
+    if n==0:
+        return matriceUnite(a)
+    elif n==1:
+        return A
+    return produitMatrice(A, exponaif(A,n-1))
+import numpy as np
+from numpy.linalg import matrix_power
+A = np.array([[0, 1], [1, 1]],dtype=np.int64) 
+matrix_power(A, 45)
+
+#EX5
+def expoRap(x,n):
+    if n==0:
+        x=1
+    elif n%2==0 and n>0:
+        x=(x**2)**(n/2)
+    elif n%2!=0:
+        x=x*(x**2)**((n-1)/2)
